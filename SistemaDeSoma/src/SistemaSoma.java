@@ -9,6 +9,7 @@ public class SistemaSoma {
 		
 		//ENTRADA DE DADOS
 		
+		
 		int valor1, valor2; 
 		
 		System.out.println("Digite o primeiro némero: ");
@@ -31,6 +32,35 @@ public class SistemaSoma {
 		
 		
 		// SAÍDA (FINALIZAÇÃO)
+		int diaDaSemana = 1;
+		
+		// Como se escreve o switch
+		switch (diaDaSemana) {
+		case 1:
+			System.out.println("Domingo");
+			break;
+		case 2: 
+			System.out.println("Segunda");
+			break;
+		case 3: 
+			System.out.println("Terça");
+			break;
+		case 4: 
+			System.out.println("quarta");
+			break;
+		case 5: 
+			System.out.println("quinta");
+			break;
+		case 6: 
+			System.out.println("Sexta");
+			break;
+		case 7: 
+			System.out.println("Sabado");
+			break;
+			//caso contrario
+		default: 
+			System.out.println("Número da semana digitado errado..");
+		}
 		
 		System.out.println("A soma do dois valores " + valor1 + " + " + valor2 + " é: " + resultado);
 		
