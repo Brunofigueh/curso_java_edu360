@@ -6,7 +6,7 @@ public class Conta {
 	
 	//Class method constructor
 	public Conta(int number){
-		this.number =number;
+		this.number = number;
 		this.balance = 0;
 	}
 	

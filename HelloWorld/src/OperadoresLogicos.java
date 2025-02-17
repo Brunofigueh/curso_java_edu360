@@ -38,6 +38,7 @@ public class OperadoresLogicos {
 		String texto = "";
 		int age = 13;
 		
+		// ATRIBUIÇÃO: +=, -=, *=, /=
 		age += 5;
 		
 		texto = (age >= 18) ? "Maior de idade" : "Menor de idade";
