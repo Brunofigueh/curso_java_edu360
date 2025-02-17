@@ -51,6 +51,18 @@ public class HelloWorld {
 		 * Usamos for quando sabemos quando termina o loop geralmente
 		 */
 		
+		
+		
+		
+/*
+		//Do While
+		System.out.println("-------- Do_While -------------");
+		do {
+			//faça
+		} while(condição)
+		
+		
+		*/
 		//System.out.println("Escreva sua idade: ");
 		
 		//idade = input.nextInt();
