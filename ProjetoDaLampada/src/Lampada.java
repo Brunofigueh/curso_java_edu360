@@ -25,7 +25,6 @@ public class Lampada {
 		this.potencia = potencia;
 	}
 	*/
-	
 	//getter
 	public boolean isLigado() {
 		return ligado;
