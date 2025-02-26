@@ -34,9 +34,7 @@ public abstract class Pessoa {
 	
 	
 	//METODOS
-	public void apresentacao() {
-		System.out.println("Olá meu nome é "+ nome+ " e sou "+ Pessoa.class.getSimpleName());
-	}
+	public abstract void apresentacao();
 	
 	
 	@Override

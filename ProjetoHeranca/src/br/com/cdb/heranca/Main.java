@@ -14,11 +14,11 @@ public class Main {
 		Scanner input = new Scanner(System.in);
 		
 		// Classe mãe pessoa
-		Pessoa fulano = new Pessoa( "Fulano");
-		System.out.println(fulano.toString());
-		
+//		Pessoa fulano = new Pessoa( "Fulano");
+//		System.out.println(fulano.toString());
+//		
 //		fulano.nome = "Fulano";
-		fulano.setCpf(1234567891);
+//		fulano.setCpf(1234567891);
 
 		
 //		fulano.apresentacao();
