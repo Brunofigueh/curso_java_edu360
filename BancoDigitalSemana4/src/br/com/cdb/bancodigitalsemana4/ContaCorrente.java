@@ -3,6 +3,18 @@ package br.com.cdb.bancodigitalsemana4;
 public class ContaCorrente implements ContaBancaria {
 	
 	private double saldo;
+	
+	private final long numero;
+	/*Ao atribuir "final" a um atributo ou componetes de um objeto (classes e métodos). Aquele valor 
+	 * não poderá nunca mais ser medificado. logo é um valor constante.
+	 * Nos casos de métodos ai atrubuir como final ele não porá ser
+	 * sub-escrito ou sobrecarregado.
+	 * Em classes final impede que ela tenha herdeiros*/
+	
+	//Constructor
+	public ContaCorrente(long numero) {
+		this.numero = numero;
+	}
 
 	@Override
 	public void depositar(double valor) {

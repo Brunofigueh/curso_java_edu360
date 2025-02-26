@@ -1,6 +1,6 @@
 package br.com.cdb.heranca.model;
 
-public class Aluno extends Pessoa {
+public final class Aluno extends Pessoa {
 	
 	public long numeroMatricula;
 	

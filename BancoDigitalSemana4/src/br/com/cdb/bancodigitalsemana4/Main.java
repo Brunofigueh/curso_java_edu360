@@ -4,7 +4,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		ContaBancaria cc = new ContaCorrente();
+		ContaBancaria cc = new ContaCorrente(25839);
 		cc.depositar(1000);
 		
 		ContaBancaria cp = new ContaPoupanca();

@@ -16,4 +16,10 @@ public class Funcionario extends Pessoa{
 	public double getSalario() {
 		return this.salario;
 	}
+
+	@Override
+	public void apresentacao() {
+		// TODO Auto-generated method stub
+		
+	}
 }
