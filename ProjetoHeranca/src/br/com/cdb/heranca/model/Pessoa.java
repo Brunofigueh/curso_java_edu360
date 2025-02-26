@@ -1,6 +1,6 @@
 package br.com.cdb.heranca.model;
 
-public class Pessoa {
+public abstract class Pessoa {
 	//PROPRIEDADES
 	protected String nome;
 	protected long cpf;
