@@ -15,6 +15,7 @@ public class Main {
 		
 		// Classe mãe pessoa
 		Pessoa fulano = new Pessoa( "Fulano");
+		System.out.println(fulano.toString());
 		
 //		fulano.nome = "Fulano";
 		fulano.setCpf(1234567891);
@@ -25,6 +26,7 @@ public class Main {
 		//Classe Filho/a aluno
 		
 		Aluno aluno1 = new Aluno("Gabriela", 1223548);
+		System.out.println(aluno1);
 		
 //		aluno1.nome = "Gabriela";
 		aluno1.setCpf(1258963317);
@@ -48,13 +50,15 @@ public class Main {
 		listaDaEscola.add(aluno1);
 		listaDaEscola.add(funcs);
 		
-		System.out.println(listaDaEscola);
+		//System.out.println(listaDaEscola);
 		
 		for(Pessoa p: listaDaEscola) {
 			p.apresentacao();
 			
 			if(p instanceof Professor) {
 				//downcast --> ((Professor) p).numeroDeAulas
+				//ele força o atroca de tipo de Pessoa que não tem acesso 
+				//ao número de aulas, para Professor onde existe esse atributo.
 				System.out.println("E tenho "+((Professor) p).numeroDeAulas+" de aulas.");
 			}
 		}

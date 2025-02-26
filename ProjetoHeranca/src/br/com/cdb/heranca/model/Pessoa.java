@@ -38,7 +38,12 @@ public class Pessoa {
 		System.out.println("Olá meu nome é "+ nome+ " e sou "+ Pessoa.class.getSimpleName());
 	}
 	
-
+	
+	@Override
+	public String toString() {
+		return this.nome+" - "+this.cpf;
+		
+	}
 
 
 }
