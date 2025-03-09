@@ -31,7 +31,7 @@ public class Main {
 		
 		
 		/*
-		 * step tracer: empilhamento de erros
+		 * stack tracer: empilhamento de erros
 		 * 
 		 * 
 		 * Existem dois tipos de exceções as verificadas 
