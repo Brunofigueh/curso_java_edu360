@@ -10,24 +10,30 @@ public class Main {
 		
 		int numero = 10; 
 		int divisor;
+		int resultado = 0;
 		
 		divisor = input.nextInt();
 		
 		// Try / catch
 		try {
-			
+			resultado = numero / divisor;
 		}
 		catch(ArithmeticException e)
 		{
+			resultado = 10/1;
 			System.out.println("Divisor foi zero não é possível fazer essa operação");
 		}
 		catch(Exception t)
 		{
 			
 		}
+		finally
+		{
+			System.out.println("O resultado é: "+resultado);
+		}
 		
 		
-		int resultado = numero / divisor;
+		
 		
 		
 		/*
