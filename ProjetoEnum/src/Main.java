@@ -6,6 +6,10 @@ public class Main {
 		// TODO Auto-generated method stub
 		
 		DiaDaSemana diaEnum;
+		
+		FormaDePagamento formaPag = FormaDePagamento.CARTAO_CREDITO;
+		
+		
 		Scanner input = new Scanner(System.in);
 		
 		diaEnum =  DiaDaSemana.DOMINGO;
