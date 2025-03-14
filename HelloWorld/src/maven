@@ -1,0 +1,11 @@
+Maven:
+	É um gerenciador de projetos em java.
+	- Cria uma padrão de pastas.
+	- As dependêncis do Framework
+	- Testes
+	- Empácotamento de projeto.
+	
+	
+	Tem um arquivo principal, denomidado de POM (Porject Object Model). Este arquivo é um XML,
+	neste arquivo estatão as dependências do projeto, como frameworks ou outras dependências 
+	usadas para produção do projeto.
