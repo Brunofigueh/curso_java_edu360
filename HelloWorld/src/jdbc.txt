@@ -1,0 +1,4 @@
+JDBC: Java DatavBase Connectivity
+- Comunicação entre uma aplicação e o DBA.
+
+No nosso projeto usaremos o Spring Boot + JDBC + JPA + H2

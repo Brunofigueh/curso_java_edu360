@@ -1,0 +1,18 @@
+ -Spring: Framework para se desenvolver em java.
+ 
+  * Spring Boot:
+  	 	- Servidor web Incorporado (TomCat)
+  	 	- Spring MVC (Model view Controller)
+  	 		Ele possui as noitações para organização de 
+  	 		um código java: 
+  	 					* @Component
+  	 					* @Autowired
+  	 					* @RequestMapping
+  	 	- Arquitura usada neste estudo é REST, como arquitetura que é 
+  	 	focada para fazer a comunicação(requisição e resposta).
+  	 	@RestController para EndPoint
+  	 	
+  	 	- Beans: é um objeto do ecositema do Spring.
+  	 	
+  	 	
+  

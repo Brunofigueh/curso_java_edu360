@@ -1,0 +1,25 @@
+ API RESTful:  É uma aplicação que é baseada em requisições e respostar (CRUD)
+  * Verbos HTTP: 	
+  		- GET: requisita informações, ira pedir informações a um servidor externo.
+  		- POST: Envia informações a um servidor, para inclusão de dados.
+  		- PUT: Atualiza informações de uma requisição
+  		- DELETE: apaga informações. 
+  		
+  		Status HTTP: São as respostas das requisições. 
+  				- 1xx (Informacional) indica que foi recebida e esta a processa-lá.
+  				- 2xx (Sucesso) indica que foi recebida , entendida e aceita com sucesso pelo servidor.
+  				- 3xx (Redirecionamento) Indica que o cliente deve realizar alguma acção adcional para 
+  					  completar a solicitação.
+  				- 4xx (Erro Cliente) Indica sintaxe incorreta ou não pode ser processada.
+  				- 5xx (Erro servidor) Servidor encontrou alguma condição inesperada que o impede de atender a solicitação.
+  				
+  				
+  				200 OK: A solicitação foi bem-sucedida.
+  				201 Created: A solicitação foi bem-sucedida e um novo  recurso foi criado.
+  				204 No Content: A solicitação foi bem sucedida porém não existe conteúdo para se retornar.
+  				301 Moved Permanently: Os recurso foram movidos permanentemente para outro servidor.
+  				400 Bad Request: Solicitação não pode ser entendida ou contém dados inválidos.
+  				401 Unauthorized: Requer autentificação de usuário.
+  				403 Forbidden: Servidor entendeu a requisição mas se recusa a atendê-la.
+  				404 Not Found: O recurso não foi encontrado.
+  				500 Internal Error Server: Servidor encontrou alguma condição inesperada que o impede de atender a solicitação.  				 				
