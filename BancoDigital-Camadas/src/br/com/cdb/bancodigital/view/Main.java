@@ -10,6 +10,9 @@ public class Main {
 		String nome = "Fulano";
 		String cpf = "12345678912";
 		
+		String nome2 = "Fulano ax";
+		String cpf2 =  "21987456321";
+		
 		ClienteService clienteService = new ClienteService();
 		
 		if(clienteService.addCliente(nome, cpf))
@@ -20,5 +23,13 @@ public class Main {
 			System.out.println("Houve um erro ao tentar adicionar esse cliente. ");
 		}
 		
+		
+		if(clienteService.addCliente(nome2, cpf2))
+		{
+			System.out.println("Cliente adicionado com sucesso!");
+		}
+		else {
+			System.out.println("Houve um erro ao tentar adicionar esse cliente. ");
+		}
 	}
 }

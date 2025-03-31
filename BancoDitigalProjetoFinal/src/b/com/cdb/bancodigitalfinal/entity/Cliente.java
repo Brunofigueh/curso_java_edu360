@@ -1,11 +1,14 @@
 package b.com.cdb.bancodigitalfinal.entity;
 
+import java.util.UUID;
+
 public class Cliente {
 	private String nome;
 	private String cpf;
 	private String dataNascimento;
-	private String endereco;
-	private int clienteID;
+	private Endereco endereco;
+	private UUID clienteID;
+	
 	
 	
 	public void setNome(String nome)
@@ -38,18 +41,20 @@ public class Cliente {
 	}
 	
 	
-	public void setEndereco(String endereco)
-	{
+	
+	
+	public Endereco getEndereco() {
+		return endereco;
+	}
+	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
-	public String getEndereco()
-	{
-		return this.endereco;
-	}
 	
-	
-	public int getClienteID()
+	public UUID getClienteID()
 	{
 		return this.clienteID;
+	}
+	public void setClienteID(UUID clienteID) {
+		this.clienteID = clienteID;
 	}
 }

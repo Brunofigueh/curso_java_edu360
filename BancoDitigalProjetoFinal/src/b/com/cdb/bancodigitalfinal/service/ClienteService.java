@@ -1,193 +1,208 @@
 package b.com.cdb.bancodigitalfinal.service;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.UUID;
 
 import b.com.cdb.bancodigitalfinal.dao.ClienteDAO;
+import b.com.cdb.bancodigitalfinal.dao.EnderecoDAO;
 import b.com.cdb.bancodigitalfinal.entity.Cliente;
+import b.com.cdb.bancodigitalfinal.entity.Endereco;
+
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 
 public class ClienteService {
+	 
+	
+	ValidadorCPF validacaoCpf = new ValidadorCPF();
 
 	ClienteDAO clienteDao = new ClienteDAO();
+	EnderecoDAO enderecoDao = new EnderecoDAO();
 	
-	public boolean addCliente(String nome, String cpf, String dataNascimento, String endereco)
+	public boolean addCliente(String nome, String cpf, String dataNascimento,  Endereco endereco )
 	{
-		if (!validarNome(nome))
+		/**
+		 * Aqui apos a chamada de todos o métodos e validação de tais, efim é adicioando o 
+		 * cliente .
+		 */
+
+		if ( clienteDao.cpfCheck(cpf))
 		{
+			System.out.println("Esse CPF: "+cpf+" possui cadastro e conta ativa e nossos sistemas.");
 			return false;
 		}
 		
-		
-		if (!validarCPF(cpf)) 
+		if (  !validacaoCpf.validarCPF(cpf) )
+		{
+			System.out.println("CPF não valido");
+			return false;
+		}
+		if (!validarNome(nome)   )
 		{
 			return false;
 		}
-		
-		if (!validarDataNasc(dataNascimento))
+		if ( !validarDataNasc(dataNascimento) )
 		{
 			return false;
 		}
-		
-		if (!validarEndereco(endereco))
+		if ( !validarEndereco(endereco) )
 		{
 			return false;
 		}
-			
-			
+
+	
+		
+		UUID uuid = UUID.randomUUID();
+		
+		Cliente cliente = new Cliente();
+		
+	
+		cliente.setNome(nome);
+		cliente.setCPF(cpf);
+		cliente.setDataNasc(dataNascimento);
+		cliente.setEndereco(endereco);
+		cliente.setClienteID(uuid);
+		
+		clienteDao.addCliente(cliente);
+		//System.out.println("ADICIONEI CLIENTE: "+cliente.getNome());
+		
+
+		
+		return true;
 	}
+
 	
+	//VALIDAÇÃO DO ENDEREÇO 
 	
+	//Formato esperado do CEP
+	private static final String FORMATO_CEP =  "^\\d{5}-\\d{2}$";
+	/**
+	 * Validação do dados de endereçõ para então serem adicionados a obj endereco.
+	 * 
+	 * @param FORMATO_CEP: Constante que compara um REGEX que verifica se o cep esta no formato padrão. 
+	 */
 	
-	public boolean validarNome(String nome) 
-	{
-		if(nome.length() > 2 && nome.length() < 200 )
+	private boolean validarEndereco(Endereco enderecos) {
+
+		if( enderecos.getNumero() <= 0 )
 		{
-			return true;
+			System.out.println("Número invádo.");
+			return false;
 		}
-		
-		return false;
-	}
-	
-	
-	
-	//VALIDAÇÃO DE CPF 
-	
-	//Digito 1
-	int primeiroDigito;
-	
-	//Digito 2
-	int segundoDigito;
-	
-	//lista para armazenar 9 primeiros digitos
-	ArrayList<Integer> cpfValid1 = new ArrayList<>();
-	
-	public boolean validarCPF(String cpf)
-	{	
-		//valida o formato do cpf passado pelo cliente.
-		if(cpf != "^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$") 
+		if( enderecos.getRua().length() < 2 || enderecos.getRua().length() > 240 || enderecos.getRua() == null )
 		{
+			System.out.println("Você precisa digitar um rua válida.");
+			return false;
+		}
+		if(  enderecos.getCidade().length() < 2 || enderecos.getCidade().length() > 120 || enderecos.getCidade() == null )
+		{
+			System.out.println("Digite uma cidade válida.");
+			return false;
+		}
+		if(  enderecos.getEstado().length() < 2 || enderecos.getEstado().length() > 40 || enderecos.getEstado() == null)
+		{
+			System.out.println("Digite um Estado válido.");
+			return false;
+		}
+		if(!enderecos.getCep().matches(FORMATO_CEP)) 
+		{
+			System.out.println("Digite um CEP válido.");
 			return false;
 		}
 		
-		String cpfF = cpf.strip().replace(".", "").replace("-", "");
+		/*
+		 * Após validação todos os dados de endereçõ são adcionados
+		 * ao objeto endereco e então ao cliente. 
+		 */
+		Endereco endereco = new Endereco();
+		endereco.setCep(endereco.getCep());
+		endereco.setRua(endereco.getRua());
+		endereco.setNumero(endereco.getNumero());
+		endereco.setCidade(endereco.getCidade());
+		endereco.setEstado(endereco.getEstado());
 		
-		//9 primeiros digitos do CPF
-		String vCpf1 = cpfF.substring(0, 9);
+		enderecoDao.addEndereco(endereco);
 		
-		//primeiro digito do cpf
-		String dCpf1 = cpfF.substring(10, 11);
-		
-		//segundo digito do cpf
-		String dCpf2 = cpfF.substring(11, 12);
-		
-		
-		
-		//Fasendo conversão para inteiro da primeira parte do cpf, os nove digitos;
-		try {
-
-
-			for(char num : vCpf1.toCharArray())
-			{
-				//Converte o num char para um inteiro e assim ser armazenado na lista
-				int number = num - '0';
-				
-				cpfValid1.add(number);
-				
-			}
-		}catch (Exception e) {
-			System.out.println("Erro de cast fase 1.");
-		}
-		
-		
-		//Convertendo primeiro Digito do Cpf
-		int dCpf1_ = 0;
-
-		
-		try {
-			dCpf1_ = Integer.parseInt(dCpf2.strip());
-		}catch (Exception e) {
-			System.out.println("Erro de cast fase 2.");
-		}
-		
-		//Convertendo segundo Digito do cpf
-		int dCpf2_ = 0;
-		
-		try {
-			dCpf2_ = Integer.parseInt(dCpf2.strip());
-		}catch (Exception e) {
-			System.out.println("Erro de cast fase 3.");
-		}	
-		
-		if (!(primeiroDigito == dCpf1_) && !(segundoDigito == dCpf2_))
-		{
-			return false;
-		}
 		
 		return true;
 	}
 	
 	
-	//Calcuculo primeiro digito
-	private int tot1 = 0;
 	
-	public int calculoDig1()
+	//VALIDANDO DATA DE NASCIMENTO
+	
+	// Formato em regex para comparar se o campo CPF foi digitado da maneira correta.
+	private static final String FORMATO_DATA_NASCIMENTO = "^\\d{2}\\/\\d{2}\\/\\d{4}$";
+	
+	private boolean validarDataNasc(String dataNascimento) {
+		/**
+		 * Valida a data de nascimento.
+		 * @param formatoDataEntrada:  Define o formato de entrada da data para posterior coversão de tipos.
+		 * @param dataNascimentoFormatada: para data formatada para tipo LocalDate.
+		 * @param calculoData: data convertida para LocalDate
+		 * @param idadeAtual: Recebe calculo da idade.
+		 */
+		
+		
+		
+		
+		
+		//Formato de entrada
+		DateTimeFormatter formatoDataEntrada = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		
+		//Data atual do sistema 
+		LocalDate atualDate = LocalDate.now() ;
+				
+		
+		
+		if (!dataNascimento.matches(FORMATO_DATA_NASCIMENTO))
+		{
+			System.out.println("Data no formato invalido, por favor siga o padrão: dd/MM/yyyy");
+			return false;
+		}LocalDate dataNascimentoFormatada = LocalDate.parse(dataNascimento, formatoDataEntrada );
+		
+		//CALCULANDO A IDADE
+		Period calculoData = Period.between(dataNascimentoFormatada, atualDate);
+		int idadeAtual = calculoData.getYears();
+				
+		if (idadeAtual < 18)
+		{
+			System.out.println("Cliente tem dever ter 18 anos ou mais.");
+			return false;
+		}return true;
+	}
+
+
+	
+	
+	//VALIDAÇÃO DE NOME 
+	private boolean validarNome(String nome) 
 	{
-		//resto da divisão
-		int rest =0;
-		
-		Collections.reverse(cpfValid1);
-		
-		for(int i=2; i <= 10; i++ )
+		if(!(nome.length() > 2) && !(nome.length() < 200) )
 		{
-			for(int j= 0; j < cpfValid1.size(); j++)
-			{
-				tot1 += j * 1;
-			}
-		}
-		
-		rest = tot1 % 11;
-		
-		if( rest < 2)
-		{
-			primeiroDigito = 0;
-			return primeiroDigito;
-		}
-		primeiroDigito = 11 - rest;
-		
-		cpfValid1.add(primeiroDigito);
-		return primeiroDigito;	
+			return false;
+		}return true;
 	}
 	
 	
-	//CALCULO SEGUNDO DIGITO
-	private int tot2 = 0;
 	
-	public int calculoDig2()
+	
+	
+
+
+	//mostra o cliente 
+	public  void mostrarCliente(String cpf )
 	{
-		//resto da divisão
-		int rest =0;
-		
-		Collections.reverse(cpfValid1);
-		
-		for(int i=2; i <= 11; i++ )
-		{
-			for(int j= 0; j < cpfValid1.size(); j++)
-			{
-				tot2 += j * 1;
-			}
-		}
-		
-		rest = tot2 % 11;
-		
-		if( rest < 2)
-		{
-			segundoDigito = 0;
-			return segundoDigito;
-		}
-		segundoDigito = 11 - rest;
-		
-		return segundoDigito;	
-	}
 	
+		try {
+			clienteDao.buscarCliente(cpf);
+			//enderecoDao.buscaEndereco(uuid);
+		} catch (Exception e) {
+			System.out.println("Cliente inexistente. ");
+		}
+	}
+
+	 
+
 	
 }
