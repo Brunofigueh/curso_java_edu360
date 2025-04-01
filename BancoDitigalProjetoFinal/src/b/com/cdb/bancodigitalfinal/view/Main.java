@@ -1,11 +1,8 @@
 package b.com.cdb.bancodigitalfinal.view;
-import b.com.cdb.bancodigitalfinal.dao.ClienteDAO;
-import b.com.cdb.bancodigitalfinal.dao.ContaDAO;
-import b.com.cdb.bancodigitalfinal.entity.Cliente;
-import b.com.cdb.bancodigitalfinal.entity.ContaCorrente;
 import b.com.cdb.bancodigitalfinal.entity.Endereco;
 import b.com.cdb.bancodigitalfinal.service.ClienteService;
 import b.com.cdb.bancodigitalfinal.service.ContaCorrenteService;
+import b.com.cdb.bancodigitalfinal.service.ContaPoupancaService;
 
 public class Main {
 
@@ -13,13 +10,8 @@ public class Main {
 		// TODO Auto-generated method stub
 		
 		ClienteService cliente = new ClienteService();
-		ClienteService cliente2 = new ClienteService();
 		ContaCorrenteService cc = new ContaCorrenteService();
-		ContaDAO contaDB = new ContaDAO();
-		ContaCorrente contaCorrente = new ContaCorrente();
-		
-		
-
+		ContaPoupancaService cp = new ContaPoupancaService();
 		
 		Endereco endereco1 = new Endereco();
 		endereco1.setRua("Rua Sabia");
@@ -60,7 +52,7 @@ public class Main {
 		
 		;
 		
-		if(cliente2.addCliente(nome2, cpf2, dataNasc2, endereco2) != null)
+		if(cliente.addCliente(nome2, cpf2, dataNasc2, endereco2) != null)
 		{
 			 System.out.println("Cliente2 Adicionado"+"\n");
 		}else {
@@ -80,10 +72,32 @@ public class Main {
 			System.out.println("error");
 		}
 		//System.out.println(Arrays.toString(cc.getClass().getDeclaredFields()));
+		if (cc.criarCCorrente(cliente.setarCliente(cpf2), "87654321", 2500))
+		{
+			System.out.println("OK");
+	
 		
+		}else {
+			System.out.println("error");
+		}
+		
+		
+		if (cp.criarCPoupanca(cliente.setarCliente(cpf), "12345678", 5001))
+		{
+			System.out.println("OK");
+	
+		
+		}else {
+			System.out.println("error");
+		}
+		
+		
+		//#############################################################################################################################################################################
 	
 		cc.mostraContasCorrentes();
+		cp.mostraContasPoupancas();
 	} 
+	
 	
 	
 }

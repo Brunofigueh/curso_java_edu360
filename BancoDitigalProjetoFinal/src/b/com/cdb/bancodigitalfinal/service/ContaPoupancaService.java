@@ -14,7 +14,6 @@ public class ContaPoupancaService {
 	 * @param cat: Enum de categoria de clietes. 
 	 */
 	
-	CategoriaDeClientes cat;
 
 	ContaDAO contaDao = new ContaDAO();
 	
@@ -30,19 +29,19 @@ public class ContaPoupancaService {
 		}
 
 		
-		CategoriaDeClientes limites = cat.defineCategoria(saldo);
+		CategoriaDeClientes limites = CategoriaDeClientes.defineCategoria(saldo);
 		
 		ContaPoupanca cp = new ContaPoupanca();
 		cp.setCliente(cliente);
 		cp.setCategoria(limites);
 		cp.setSenha(senha);
-		cp.setTaxaRendimentoAnual(saldo);
-		cp.setLimeteCredito(saldo);
-		cp.setTaxaRendimentoAnual(contaRendimento(saldo));
+		cp.setLimeteCredito(limites.getLimiteCredito());
+		cp.setTaxaRendimentoAnual(limites.getTaxAnual());
 		
 		long cpNum = geradorNumeroCP();
 		cp.setNumeroConta(cpNum);
 		
+		contaDao.criarCPoupanca(cp);
 		return true;
 	}
 	
@@ -102,14 +101,22 @@ public class ContaPoupancaService {
 		 * @return: retorna o número conta
 		 */
 		Random randons = new Random();
+		String numeroGerado = "";
+		String numeroContaProvisorio = "";
+		
 		
 		String contaPoupancaPrimaryDigts = "302";
 		
-		LongStream contaPpSecundary =  randons.longs(7);
+		for (int i = 0; i < 7; i++)
+		{
+			int contaPpSecundary =  randons.nextInt(9);
+			numeroGerado += contaPpSecundary;
+		}
 		
-		String numeroGerado = contaPoupancaPrimaryDigts +contaPpSecundary;
+		numeroContaProvisorio = contaPoupancaPrimaryDigts +numeroGerado;
 		
-		long numeroConta = Long.parseUnsignedLong(numeroGerado);
+		long numeroConta = Long.parseUnsignedLong(numeroContaProvisorio);
+		System.out.println(numeroConta);
 		
 		return numeroConta;
 	}
@@ -131,23 +138,18 @@ public class ContaPoupancaService {
 			}
 	}
 	
-	//RENDIMENTO DA CONTA POUPANÇA
-	public double  contaRendimento(double saldo)
-	{
-		if (saldo <= 1_000)
-		{
-			double tax = cat.COMUM.getTaxAnual();
-			return tax;
-		}
-		else if (saldo <= 5_000)
-		{
-			double tax = cat.SUPER.getTaxAnual();
-			return tax;
-			
-		}
-		double tax = cat.PREMIUN.getTaxAnual();
-		return tax;
-	}
+
 	
+	//EXIBIR CONTAS POUPANÇAS 
+	public void mostraContasPoupancas() {
+		 contaDao.listarContas();
+		
+	}
+
+	public Conta getContas()
+	{
+		Conta c = contaDao.contaFinder();
+		return c;
+	}
 
 }

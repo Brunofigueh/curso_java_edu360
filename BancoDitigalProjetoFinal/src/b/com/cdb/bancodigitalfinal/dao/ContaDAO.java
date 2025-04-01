@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import b.com.cdb.bancodigitalfinal.entity.Conta;
 import b.com.cdb.bancodigitalfinal.entity.ContaCorrente;
 import b.com.cdb.bancodigitalfinal.entity.ContaPoucanca;
+import b.com.cdb.bancodigitalfinal.entity.ContaPoupanca;
 
 public class ContaDAO {
 	
@@ -15,7 +16,7 @@ public class ContaDAO {
 		contasDB.add(cc);
 	}
 	
-	public void criarCPoupanca(ContaPoucanca cp)
+	public void criarCPoupanca(ContaPoupanca cp)
 	{
 		contasDB.add(cp);
 	}
@@ -71,10 +72,37 @@ public class ContaDAO {
 	
 	public void listarContas()
 	{
-		for(Conta c : contasDB)
+		try
 		{
-			System.out.println(c.getNumeroConta());
-			;
+			for(Conta c : contasDB)
+			{
+				System.out.println("Numero "+c.getClass().getSimpleName()+": "+c.getNumeroConta());
+
+			}
 		}
+		catch(Exception e)
+		{
+			System.out.println("Némero de conta não encontrado. ");
+			
+		}
+		
 	}
+	
+	public Conta contaFinder()
+	{
+		try
+		{
+			for(Conta c : contasDB)
+			{
+				return c;
+
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println("Némero de conta não encontrado. ");
+			
+		}return null;
+	}
+	
 }

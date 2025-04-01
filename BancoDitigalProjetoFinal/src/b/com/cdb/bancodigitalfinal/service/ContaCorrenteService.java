@@ -9,10 +9,9 @@ import b.com.cdb.bancodigitalfinal.entity.ContaCorrente;
 
 public class ContaCorrenteService {
 	/**
-	 * @param cat: Enum de categoria de clietes. 
+	 * 
 	 */
 	
-	CategoriaDeClientes  cat ;
 	
 	ContaDAO contaDao = new ContaDAO();
 
@@ -39,10 +38,8 @@ public class ContaCorrenteService {
 		ContaCorrente cc = new ContaCorrente();
 		cc.setCliente(cliente);
 		cc.setSaldo(saldo);
-		System.out.println(saldo);
 		
 		CategoriaDeClientes limites = CategoriaDeClientes.defineCategoria(saldo) ;
-		System.out.println(limites);
 		
 		cc.setCategoria(limites);
 		cc.setSenha(senha);
@@ -165,7 +162,6 @@ public class ContaCorrenteService {
 			int contaCcSecundary =  randons.nextInt(9);
 			numeroGerado += contaCcSecundary;
 		}
-		System.out.println(numeroGerado);
 		
 		numeroContaProvisorio = contaCorrentePrimaryDigts + numeroGerado;
 		
@@ -176,16 +172,21 @@ public class ContaCorrenteService {
 	}
 
 
+
+	
+	
+	//listar contas
 	public void mostraContasCorrentes() {
 		 contaDao.listarContas();
 		
 	}
 
 	
-	
-	//listar contas
-	
-	
+	public Conta getContas()
+	{
+		Conta c = contaDao.contaFinder();
+		return c;
+	}
 
 	
 			
