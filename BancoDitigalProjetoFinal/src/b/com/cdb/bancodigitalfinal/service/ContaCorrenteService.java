@@ -86,7 +86,7 @@ public class ContaCorrenteService {
 		 * @diferencaValor: Será o novo valor da conta, que no calculo é acrescido 5% de juros. 
 		 * 
 		 */
-		CategoriaDeClientes limiteAtual = cat.defineCategoria(saldo);
+		CategoriaDeClientes limiteAtual = CategoriaDeClientes.defineCategoria(saldo);
 		double limite = limiteAtual.getLimiteContaCC();
 		
 		if (valor <= saldo ) {
