@@ -103,33 +103,35 @@ public class ContaCorrenteService {
 	
 	//Deposito conta corrente 
 	
-	public void depositar(double valor, double saldo)
+	public void depositar(double valor, long numeroContaPattern)
 	/**
+	 * @param numeroContaPattern: Número da conta a recever
 	 * @param valor: valor a depositar
 	 * @param: saldo: saldo da conta
 	 */
 	{
+		double saldo = contaDao.buscaConta(numeroContaPattern).getSaldo();
 		saldo += valor;
 	}
-	
-	
-	
 	//TRANFERENCIAS 
-	public void transfereciaPix(double valor, double saldo, long numeroConta)
+	public void transfereciaPix(double valor,  long numeroConta, long contaReceb)
 	{
+		Double saldo = contaDao.buscaConta(numeroConta).getSaldo();
+		
 		
 		if( contaDao.contaCheck(numeroConta) && saldo >= valor)
 		{
-			Conta contaRecebedora = contaDao.buscaConta(numeroConta);
-			double saldoCR = contaRecebedora.getSaldo();
 			
-			depositar(valor, saldoCR) ;
+			depositar(valor, contaReceb) ;
 
 		}else {
 				System.out.println("Não foi possível fazer sua transferência."
 						+ "Por favor confira o número da conta e o saldo.");
 			}
 	}
+	
+
+	
 
 	
 	

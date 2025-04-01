@@ -81,10 +81,38 @@ public class ContaPoupancaService {
 
 	//DOSITO EM CONTA POUPANÇA 
 	
-	public void depositar(double valor, double saldo)
+	public void depositar(double valor, long numeroContaPattern)
+	/**
+	 * @param numeroContaPattern: Número da conta a recever
+	 * @param valor: valor a depositar
+	 * @param: saldo: saldo da conta
+	 */
 	{
+		double saldo = contaDao.buscaConta(numeroContaPattern).getSaldo();
 		saldo += valor;
+		System.out.println("Conta "+contaDao.buscaConta(numeroContaPattern)+ " Saldo: "+ saldo);
 	}
+	
+	
+	//TRANFERENCIAS 
+	public void transfereciaPix(double valor,  long numeroConta, long contaReceb)
+	{
+		Double saldo = contaDao.buscaConta(numeroConta).getSaldo();
+		
+		
+		if( contaDao.contaCheck(numeroConta) && saldo >= valor)
+		{
+			
+			depositar(valor, contaReceb) ;
+
+		}else {
+				System.out.println("Não foi possível fazer sua transferência."
+						+ "Por favor confira o número da conta e o saldo.");
+			}
+	}
+	
+
+	
 	
 	//GERADOR DE NÉMERO DE CONTA POUPAÇA
 	public long geradorNumeroCP()
@@ -121,25 +149,7 @@ public class ContaPoupancaService {
 		return numeroConta;
 	}
 	
-	//TRANFERENCIAS 
-	public void transfereciaPix(double valor, double saldo, long numeroConta)
-	{
-		
-		if( contaDao.contaCheck(numeroConta) && saldo >= valor)
-		{
-			Conta contaRecebedora = contaDao.buscaConta(numeroConta);
-			double saldoCR = contaRecebedora.getSaldo();
-			
-			depositar(valor, saldoCR) ;
 
-		}else {
-				System.out.println("Não foi possível fazer sua transferência."
-						+ "Por favor confira o número da conta e o saldo.");
-			}
-	}
-	
-
-	
 	//EXIBIR CONTAS POUPANÇAS 
 	public void mostraContasPoupancas() {
 		 contaDao.listarContas();

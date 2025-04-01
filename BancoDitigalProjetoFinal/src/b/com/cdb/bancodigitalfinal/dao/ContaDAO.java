@@ -11,6 +11,17 @@ public class ContaDAO {
 	
 	ArrayList<Conta> contasDB = new ArrayList<>();
 	
+	public double consultaSaldo()
+	{	
+		double saldo = 0;
+		for(Conta account: contasDB)
+		{
+			saldo = account.getSaldo();
+			
+		}
+		return saldo;
+	}
+	
 	public void criarCCorrente(ContaCorrente cc) 
 	{
 		contasDB.add(cc);
@@ -57,7 +68,11 @@ public class ContaDAO {
 		return false;
 	}
 	
+	
 	public Conta buscaConta(long numConta)
+	/**
+	 * Busca a conta na base de dados 
+	 */
 	{
 		for(Conta c : contasDB)
 		{

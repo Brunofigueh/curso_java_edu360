@@ -8,7 +8,10 @@ public class Conta {
 		private CategoriaDeClientes  categoria;
 		
 	
-		
+		public double consultaSaldo()
+		{
+			return saldo;
+		}
 		
 		public CategoriaDeClientes getCategoria() {
 			return categoria;
