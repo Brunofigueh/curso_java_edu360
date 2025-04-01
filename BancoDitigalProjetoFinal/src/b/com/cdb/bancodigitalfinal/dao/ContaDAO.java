@@ -74,7 +74,6 @@ public class ContaDAO {
 		for(Conta c : contasDB)
 		{
 			System.out.println(c.getNumeroConta());
-			System.out.println("To passando nessa merda");
 			;
 		}
 	}
