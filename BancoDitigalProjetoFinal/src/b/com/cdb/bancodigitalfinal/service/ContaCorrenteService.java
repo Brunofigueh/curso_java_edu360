@@ -1,8 +1,6 @@
 package b.com.cdb.bancodigitalfinal.service;
 
 import java.util.Random;
-import java.util.stream.LongStream;
-
 import b.com.cdb.bancodigitalfinal.dao.ContaDAO;
 import b.com.cdb.bancodigitalfinal.entity.CategoriaDeClientes;
 import b.com.cdb.bancodigitalfinal.entity.Cliente;
@@ -14,9 +12,10 @@ public class ContaCorrenteService {
 	 * @param cat: Enum de categoria de clietes. 
 	 */
 	
-	CategoriaDeClientes cat;
+	CategoriaDeClientes  cat ;
 	
 	ContaDAO contaDao = new ContaDAO();
+
 	
 	public boolean criarCCorrente(Cliente cliente, String senha, double saldo) 
 	{
@@ -35,10 +34,16 @@ public class ContaCorrenteService {
 		}
 
 		
-		CategoriaDeClientes limites = cat.defineCategoria(saldo);
+		
 	
 		ContaCorrente cc = new ContaCorrente();
 		cc.setCliente(cliente);
+		cc.setSaldo(saldo);
+		System.out.println(saldo);
+		
+		CategoriaDeClientes limites = CategoriaDeClientes.defineCategoria(saldo) ;
+		System.out.println(limites);
+		
 		cc.setCategoria(limites);
 		cc.setSenha(senha);
 		cc.setTaxaMensal(limites.getTaxManutencao());
@@ -53,12 +58,7 @@ public class ContaCorrenteService {
 		
 		return true;
 	}
-	public boolean criarCCorrente(ClienteService cliente, String senha, int saldo) 
-	{
-		
-		return true;
-	}
-	
+
 	
 	public boolean validarSenha(String senha)
 	{
@@ -146,24 +146,46 @@ public class ContaCorrenteService {
 		 * @param randons: Intância de Random para geração de números aleatorios.
 		 * @param contaCorrentePrimaryDigts: Três primeiros números fixos das CC que são 301.
 		 * @param contaCcSecundary: Responsavél por gerar os outros 7 números.
+		 * @param numeroContaProvisorio: Número da conta em final em String.
 		 * @param numeroGerado: Número gerado para conta conrrente. 
 		 * @param numeroConta: Número da conta convertido para long
 		 * 
 		 * @return: retorna o número conta
 		 */
 		Random randons = new Random();
+		String numeroGerado = "";
+		String numeroContaProvisorio = "";
+		
+		
 		
 		String contaCorrentePrimaryDigts = "301";
 		
-		LongStream contaCcSecundary =  randons.longs(7);
+		for (int i = 0; i < 7; i++)
+		{
+			int contaCcSecundary =  randons.nextInt(9);
+			numeroGerado += contaCcSecundary;
+		}
+		System.out.println(numeroGerado);
 		
-		String numeroGerado = contaCorrentePrimaryDigts +contaCcSecundary;
+		numeroContaProvisorio = contaCorrentePrimaryDigts + numeroGerado;
 		
-		long numeroConta = Long.parseUnsignedLong(numeroGerado);
+		
+		long numeroConta = Long.parseLong(numeroContaProvisorio);
 		
 		return numeroConta;
 	}
 
+
+	public void mostraContasCorrentes() {
+		 contaDao.listarContas();
+		
+	}
+
+	
+	
+	//listar contas
+	
+	
 
 	
 			

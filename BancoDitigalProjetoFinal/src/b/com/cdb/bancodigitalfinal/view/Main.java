@@ -1,8 +1,7 @@
 package b.com.cdb.bancodigitalfinal.view;
-
-import java.util.Arrays;
-
+import b.com.cdb.bancodigitalfinal.dao.ClienteDAO;
 import b.com.cdb.bancodigitalfinal.dao.ContaDAO;
+import b.com.cdb.bancodigitalfinal.entity.Cliente;
 import b.com.cdb.bancodigitalfinal.entity.ContaCorrente;
 import b.com.cdb.bancodigitalfinal.entity.Endereco;
 import b.com.cdb.bancodigitalfinal.service.ClienteService;
@@ -14,8 +13,10 @@ public class Main {
 		// TODO Auto-generated method stub
 		
 		ClienteService cliente = new ClienteService();
+		ClienteService cliente2 = new ClienteService();
 		ContaCorrenteService cc = new ContaCorrenteService();
 		ContaDAO contaDB = new ContaDAO();
+		ContaCorrente contaCorrente = new ContaCorrente();
 		
 		
 
@@ -41,38 +42,39 @@ public class Main {
 		
 		String nome = "Bruno F" ;
 		String cpf = "958.101.230-31";
-		String dataNasc = "11/03/1989";
+ 		String dataNasc = "11/03/1989";
 		
-		
+		String nome2 = "Maria Algusta";
 		String cpf2 = "814.247.680-04";
 		String dataNasc2 = "25/11/1990";
 		
-		
 		//cliente.addCliente(nome, cpf, dataNasc, endereco);
 		
-		if(cliente.addCliente(nome, cpf, dataNasc, endereco1))
+		if(cliente.addCliente(nome, cpf, dataNasc, endereco1) != null)
 		{
 			 System.out.println("Cliente Adicionado"+"\n");
+			;
 		}else {
 			System.out.println("Erro ao acidionar "+nome+"\n");
 		}
 		
+		;
 		
-		/*if(cliente.addCliente(nome2, cpf2, dataNasc2, endereco2))
+		if(cliente2.addCliente(nome2, cpf2, dataNasc2, endereco2) != null)
 		{
 			 System.out.println("Cliente2 Adicionado"+"\n");
 		}else {
 			System.out.println("Erro ao acidionar "+nome2+"\n");
 		}
-	*/
+	
 		//System.out.println(validar.validarCPF(cpf));
 		
 	//#####################################################################################################################################################################
 		//CRIAÇÃO DE CONTAS
-		if (cc.criarCCorrente(cliente, "1234567", 2000))
+		if (cc.criarCCorrente(cliente.setarCliente(cpf), "12345678", 5001))
 		{
-			System.out.println(cc.toString());
-			
+			System.out.println("OK");
+	
 		
 		}else {
 			System.out.println("error");
@@ -80,7 +82,7 @@ public class Main {
 		//System.out.println(Arrays.toString(cc.getClass().getDeclaredFields()));
 		
 	
-		contaDB.listarContas();
+		cc.mostraContasCorrentes();
 	} 
 	
 	

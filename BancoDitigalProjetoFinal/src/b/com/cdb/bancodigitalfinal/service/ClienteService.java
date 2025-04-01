@@ -19,7 +19,7 @@ public class ClienteService {
 	ClienteDAO clienteDao = new ClienteDAO();
 	EnderecoDAO enderecoDao = new EnderecoDAO();
 	
-	public boolean addCliente(String nome, String cpf, String dataNascimento,  Endereco endereco )
+	public Cliente addCliente(String nome, String cpf, String dataNascimento,  Endereco endereco )
 	{
 		/**
 		 * Aqui apos a chamada de todos o métodos e validação de tais, efim é adicioando o 
@@ -29,25 +29,25 @@ public class ClienteService {
 		if ( clienteDao.cpfCheck(cpf))
 		{
 			System.out.println("Esse CPF: "+cpf+" possui cadastro e conta ativa e nossos sistemas.");
-			return false;
+			return null;
 		}
 		
 		if (  !validacaoCpf.validarCPF(cpf) )
 		{
 			System.out.println("CPF não valido");
-			return false;
+			return null;
 		}
 		if (!validarNome(nome)   )
 		{
-			return false;
+			return null;
 		}
 		if ( !validarDataNasc(dataNascimento) )
 		{
-			return false;
+			return null;
 		}
 		if ( !validarEndereco(endereco) )
 		{
-			return false;
+			return null;
 		}
 
 	
@@ -68,7 +68,7 @@ public class ClienteService {
 		
 
 		
-		return true;
+		return cliente;
 	}
 
 	
@@ -177,8 +177,12 @@ public class ClienteService {
 	
 	//VALIDAÇÃO DE NOME 
 	private boolean validarNome(String nome) 
+	/**
+	 * Faz a validação de nome. Validando tamamho 
+	 * e se o campo não é nulo.
+	 */
 	{
-		if(!(nome.length() > 2) && !(nome.length() < 200) )
+		if(!(nome.length() > 2) && !(nome.length() < 200) && nome != null )
 		{
 			return false;
 		}return true;
@@ -192,6 +196,10 @@ public class ClienteService {
 
 	//mostra o cliente 
 	public  void mostrarCliente(String cpf )
+	/**
+	 * percorre base para vereficar se o cliente
+	 * já não existe na base, considerando o cpf.
+	 */
 	{
 	
 		try {
@@ -202,6 +210,22 @@ public class ClienteService {
 		}
 	}
 
+	
+	//ira buscar o cliente na base e setalo a conta
+	public Cliente setarCliente(String cpf)
+	/**
+	 * Busca o cliente o cliente e caso
+	 * o encontre na base o retorna para criação de conta. 
+	 */
+	{
+		Cliente cli = clienteDao.setClite(cpf);
+		if ( cli != null)
+		{
+
+			return cli;
+		}
+		return null;
+	}
 	 
 
 	

@@ -40,7 +40,7 @@ public class Conta {
 		{
 			return saldo;
 		}
-		protected void setSaldo(double saldo) 
+		public void setSaldo(double saldo) 
 		{
 			this.saldo = saldo;
 		}

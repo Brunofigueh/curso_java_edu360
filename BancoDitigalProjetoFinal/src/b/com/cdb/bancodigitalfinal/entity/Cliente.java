@@ -17,7 +17,7 @@ public class Cliente {
 	}
 	public String getNome() 
 	{
-		return this.nome;
+		return nome;
 	}
 	
 	
@@ -27,7 +27,7 @@ public class Cliente {
 	}
 	public String getCPF() 
 	{
-		return this.cpf;
+		return cpf;
 	}
 	
 	
@@ -37,7 +37,7 @@ public class Cliente {
 	}
 	public String getDataNasc()
 	{
-		return this.dataNascimento;
+		return dataNascimento;
 	}
 	
 	
@@ -52,7 +52,7 @@ public class Cliente {
 	
 	public UUID getClienteID()
 	{
-		return this.clienteID;
+		return clienteID;
 	}
 	public void setClienteID(UUID clienteID) {
 		this.clienteID = clienteID;

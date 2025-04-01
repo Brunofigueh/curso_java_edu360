@@ -1,6 +1,7 @@
 package b.com.cdb.bancodigitalfinal.dao;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import b.com.cdb.bancodigitalfinal.entity.Cliente;
 
@@ -44,13 +45,25 @@ public class ClienteDAO {
 		}
 	}
 	
+	public Cliente setClite(String cpf)
+	{
+		for ( Cliente cliente : clienteDB)
+		{
+			if ( cliente.getCPF().equals(cpf) ) 
+			{
+				return cliente;
+			}
+		}
+		return null;
+	}
+	
 	
 	//Busca se o cpf já existe na base
 	public boolean cpfCheck(String cpf)
 	{
 		for(Cliente c: clienteDB)
 		{
-			if (c.getCPF() == cpf) 
+			if (c.getCPF().matches(cpf) ) 
 			{
 				return true;
 			}

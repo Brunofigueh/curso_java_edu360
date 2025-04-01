@@ -57,7 +57,7 @@ public enum CategoriaDeClientes {
 	}
 	
 	
-	public CategoriaDeClientes defineCategoria(double saldo)
+	public static CategoriaDeClientes defineCategoria(double saldo)
 	{
 		/**
 		 * Define categoria de clientes conforme o saldo em conta. 
@@ -65,17 +65,20 @@ public enum CategoriaDeClientes {
 		 * @param super: Clientes super com saldo <=5_000
 		 * @param premium: Cliente premium com  saldo superior a 10_000
 		 */
-		CategoriaDeClientes comum = CategoriaDeClientes.COMUM;
-		CategoriaDeClientes supeer = CategoriaDeClientes.SUPER;
-		CategoriaDeClientes premium = CategoriaDeClientes.PREMIUN;
+
 		
-		
-		if (saldo <= 1_000)
+		if (saldo < 4_999)
 		{
-			return comum;
-		}else if(saldo <= 5_000) {
-			return supeer;
-		}return premium;
+			return COMUM;
+
+		}else if(saldo <= 5_000)
+		{
+			return SUPER;
+			
+		}else
+			{
+			return PREMIUN;
+			}
 	}
 	
 }
